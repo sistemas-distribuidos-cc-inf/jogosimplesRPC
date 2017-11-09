@@ -17,6 +17,15 @@ type EstadoDoJogo struct {
 	Coluna    int
 }
 
+func (t *EstadoDoJogo) AlocaTabuleiro() {
+	for i, _ := range t.Tabuleiro {
+		t.Tabuleiro[i] = make([]string, 3)
+		for j, _ := range t.Tabuleiro[i] {
+			t.Tabuleiro[i][j] = "-"
+		}
+	}
+}
+
 func main() {
 
 }
