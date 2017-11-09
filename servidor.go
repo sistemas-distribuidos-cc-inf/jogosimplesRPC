@@ -15,7 +15,7 @@ type JogoDaVelha struct {
 
 type Jogo int
 
-func (t *JogoDaVelha) ImprimeTabuleiro(args *JogoDaVelha, resposta *int) {
+func (t *Jogo) ImprimeTabuleiro(args *JogoDaVelha, resposta *int) error {
 	fmt.Println("Tabuleiro do jogo: \n")
 
 	fmt.Println("   0 1 2")

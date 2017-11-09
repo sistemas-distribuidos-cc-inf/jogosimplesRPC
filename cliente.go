@@ -17,6 +17,18 @@ type EstadoDoJogo struct {
 	Coluna    int
 }
 
+func (t *JogoDaVelha) Connectar() {
+
+	client, err := rpc.Dial("tcp", ":1234")
+	if err != nil {
+		log.Fatal("erro na conexao: ", err)
+
+	}
+
+	t.Connection = client
+
+}
+
 func (t *EstadoDoJogo) AlocaTabuleiro() {
 	for i, _ := range t.Tabuleiro {
 		t.Tabuleiro[i] = make([]string, 3)
@@ -76,5 +88,34 @@ func (t *JogoDaVelha) VerificarVencedor(args *EstadoDoJogo) bool {
 }
 
 func main() {
+	var args *EstadoDoJogo = &EstadoDoJogo{}
+	args.Tabuleiro = make([][]string, 3)
+	args.Marca = "X"
+	args.Linha = 0
+	args.Coluna = 0
 
+	args.AlocaTabuleiro()
+
+	var jogo *JogoDaVelha = &JogoDaVelha{}
+	jogo.Connectar()
+
+	jogo.ImprimirJogo(args)
+
+	for i := 0; i < 9; i++ {
+		if jogo.VerificarVencedor(args) {
+			if args.Marca == "X" {
+				args.Marca = "0"
+
+			} else {
+				args.Marca = "X"
+
+			}
+			fmt.Printf("Jogador %s venceu\n", args.Marca)
+			break
+
+		}
+		jogo.Inserir(args)
+		jogo.ImprimirJogo(args)
+
+	}
 }
