@@ -81,8 +81,6 @@ func (t *JogoDaVelha) VerificarVencedor(args *EstadoDoJogo) bool {
 
 	}
 
-	fmt.Println(verificador)
-
 	return verificador
 
 }
